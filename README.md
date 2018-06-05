@@ -20,12 +20,11 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 4、demo/result  -- 存放测试结果  
 5、lib -- 模型各个部分的程序文件  
 
-### 程序运行
-准备工作：
-1.下载代码到本地 git clone https://github.com/Liu-Yicheng/Faster-rcnn.git
-2.安装程序需要的包 pip install -r requirements.txt
-3.cd lib 进入lib文件夹
-  sh make.sh 编译程序需要用到的组件如nms与roi-pooling
+### 程序运行   
+1.下载代码到本地： git clone https://github.com/Liu-Yicheng/Faster-rcnn.git   
+2.安装程序需要的包：pip install -r requirements.txt   
+3. 进入lib文件夹 ：cd lib  
+　编译程序需要用到的组件如nms与roi-pooling：sh make.sh 
   
 4.程序使用流程：---------------------训练过程---------------------------  
 　　　　　　　　A.将需要训练与测试的图片放入Data/picture_data/Images文件夹   
