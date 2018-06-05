@@ -5,10 +5,10 @@
 本代码目的：方便学习faster-rcnn细节，如果项目应用还是用参考代码比较好   
 本代码特点：在保证基础功能的前提下，对数据处理部分进行整理，对模型部分进行注释    
 
-# 开发环境  
+### 开发环境  
 Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0    
 
-# 文件夹说明
+### 文件夹说明
 1、Data：   
 　　　picture_data/Annotations--存放图片标注的xml文件（手动存放）   
 　　　picture_data/Images --存放用于训练与测试的图片（手动存放）   
@@ -20,7 +20,7 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 4、demo/result  -- 存放测试结果  
 5、lib -- 模型各个部分的程序文件  
 
-# 程序运行
+### 程序运行
 准备工作：
 1.下载代码到本地 git clone https://github.com/Liu-Yicheng/Faster-rcnn.git
 2.安装程序需要的包 pip install -r requirements.txt
@@ -42,7 +42,9 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 　　　　　　　　C.运行demo.py进行测试，结果在demo/result中查看  
 3.本代码方便学习faster内部细节与整个流程，但是用于项目中还是用参考代码  
   参考代码实现了多个模型与roi-crop，并且有计算map的函数等等，比较完备   
-	
+
+# Faster-Rcnn模型详解
+# Pytorch使用
 				
 				
 
