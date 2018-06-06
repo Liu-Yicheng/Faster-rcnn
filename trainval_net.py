@@ -44,10 +44,10 @@ def parse_args():
                       default=1, type=int)
   parser.add_argument('--epochs', dest='max_epochs',
                       help='number of epochs to train',
-                      default=50, type=int)
+                      default=500, type=int)
   parser.add_argument('--save_epochs', dest='save_epochs',
                       help='save_epochs',
-                      default=50, type=int)
+                      default=500, type=int)
 
   parser.add_argument('--disp_interval', dest='disp_interval',
                       help='number of iterations to display',
@@ -85,7 +85,7 @@ def parse_args():
                       default=0.001, type=float)
   parser.add_argument('--lr_decay_step', dest='lr_decay_step',
                       help='step to do learning rate decay, unit is epoch',
-                      default=10, type=int)
+                      default=50, type=int)
   parser.add_argument('--lr_decay_gamma', dest='lr_decay_gamma',
                       help='learning rate decay ratio',
                       default=0.5, type=float)
