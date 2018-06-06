@@ -1,6 +1,6 @@
 # 进度提示（标志：仓库程序文件还没有完善好）
 2018.6.6 完成代码提交(下一步：代码用另外的电脑进行检测是否可以运行)
-
+2018.6.6 完成代码测试-6步即可训练与测试（下一步：编写README-Faster详解部分）
 # 工程内容    
 这个程序是基于Pytorch实现Faster-RCNN功能。    
 参考代码链接：https://github.com/jwyang/faster-rcnn.pytorch.git    
@@ -24,16 +24,16 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 5、lib -- 模型各个部分的程序文件  
 
 ### 程序运行   
-1.6步快速验证程序是否可行：
-  由于之前的反馈许多同学是在验证程序可行之后才开始读代码，可是准备数据集又不太方便
-  因此我提前做了一些准备工作方便同学快速验证程序的可行性，步骤如下：
-  1.下载代码到本地： git clone https://github.com/Liu-Yicheng/Faster-rcnn.git   
-  2.安装程序需要的包：pip install -r requirements.txt   
-  3. 进入lib文件夹 ：cd lib  
-　   编译程序需要用到的组件如nms与roi-pooling：sh make.sh 
-  4.在下面的链接中下载VGG预训练模型，放入Data/pretrained_model文件夹
-  5.直接可以运行trainval.py（训练500次之后结束，loss值一般为0.1-0.15）
-  6.训练结束后直接可运行demo.py，在demo/result文件夹下可以看到它的预测结果
+1.6步快速验证程序是否可行：   
+　由于之前的反馈许多同学是在验证程序可行之后才开始读代码，可是准备数据集又不太方便   
+　因此我提前做了一些准备工作方便同学快速验证程序的可行性，步骤如下：   
+　1.下载代码到本地： git clone https://github.com/Liu-Yicheng/Faster-rcnn.git      
+　2.安装程序需要的包：pip install -r requirements.txt      
+　3.进入lib文件夹 ：cd lib     
+　　编译程序需要用到的组件如nms与roi-pooling：sh make.sh    
+　4.在下面的链接中下载VGG预训练模型，放入Data/pretrained_model文件夹   
+　5.直接可以运行trainval.py（训练500次之后结束，loss值一般为0.1-0.15）   
+　6.训练结束后直接可运行demo.py，在demo/result文件夹下可以看到它的预测结果   
   
 2.程序使用具体流程：---------------------训练过程-------------------------  
 　　　　　　　　A.将需要训练与测试的图片放入Data/picture_data/Images文件夹   
@@ -43,8 +43,8 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 　　　　　　　　　权重下载地址：[Dropbox](https://www.dropbox.com/s/s3brpk0bdq60nyb/vgg16_caffe.pth?dl=0)　　[VT Server](https://filebox.ece.vt.edu/~jw2yang/faster-rcnn/pretrained-base-models/vgg16_caffe.pth)  
 　　　　　　　　　　　　　　　　[百度云](https://pan.baidu.com/s/1nHezTm6xKXjHYZXKHAl3KQ) 密码：or0m  
 　　　　　　　　D.针对自己的项目修改traincal.py文件中的参数(如果用命令行的就输入参数)
-	      E.修改Data/pascal.py的141行，类别为用户的数据集类别
-　　　　　　　　F.运行trainval.py 开始训练  
+　　　　　　　　E.修改Data/pascal.py的141行，类别为用户的数据集类别      
+　　　　　　　　F.运行trainval.py 开始训练       
 　　　　　　　　----------------------测试过程---------------------------  
 　　　　　　　　A.修改demo中的139行改为你训练之后的模型名称  
 　　　　　　　　B.将测试图片放入demo/images文件夹  
