@@ -58,14 +58,14 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 3.本代码方便学习faster内部细节与整个流程，但是用于项目中还是用参考代码  
   参考代码实现了多个模型与roi-crop，并且有计算map的函数等等，比较完备   
 
-# Faster-Rcnn模型详解
-faster组件说明:
-----------------------------------------------------------------------------------------
+# Faster-Rcnn模型详解   
+faster组件说明:   
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 1.VGG16convrelu1--convrelu5(lib/model/faster_rcnn/vgg16.py):   
 　　输入：图片（input_image）  　
 　　过程：图片输入多个卷积层池化层  
 　　输出：图片的特征图（H*W*512）   
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 2.generate_anchor(lib/model/rpn/generate_anchor.py)：   
 　　输入：默认参数(base_size = 16, ratios =[0.5, 1, 2],scales = [8,16,32])   
 　　过程：step1.构造一个参考ref_anchor[0,0,15,15]   
@@ -74,20 +74,20 @@ faster组件说明:
 　　　　　step3.将step2得到的3种anchor保持中心点不变，各自的边长缩放[8,16,32]倍   
 　　　　　　　　如此得到9种anchor。   
 　　输出：_anchors：9个中心点一致，面积不相同的anchor   
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 3.anchor_target_layer(lib/model/rpn/anchor_target_layer.py)：   
 　　输入：feature_map（H*W*512），9种_anchor   
 　　过程：step1.根据feature_map的面积(H*W),以上面每一个点为anchor中心，产生9个anchor   
 　　　　　　　　最后得到H*W*9个anchor，这些anchor的位置是在输入图像上的位置   
 　　　　　step2.在这些anchor中，只保留4个顶点都在图像内的anchor   
 　　输出：anchors：H*W*9个anchor - 在图像外部的anchor   
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 4.bbox_overlaps_batch(lib/model/rpn/bbox_transfrom.py):      
 　　输入：3输出的anchor，gt_boxes    
 　　过程：生成anchor与gt_boxes的iou矩阵overlaps。   
 　　　　　第i行第j列为第i个anchor与第j个gt_boxes的IOU值      
 　　输出：overlaps   
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 overlaps->label(lib/model/rpn/anchor_target_layer.py):   
 　　输入：overlaps  
 　　过程：这个主要是通过anchor与gt的IOU矩阵确定anchor是正样本还是负样本。  
@@ -100,12 +100,12 @@ overlaps->label(lib/model/rpn/anchor_target_layer.py):
 　　　　　　　　最后得到所有的anchor的labels值  
 　　输出：labels（代表生成的anchor里有无目标物体，分数为0，1，-1：1代表有物体，  
 　　　　　0代表没有物体，-1代表不参与训练）  
-----------------------------------------------------------------------------------------		  
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿	  
 5.RPN_conv1(lib/model/rpn/rpn.py)：  
 　　输入：feature_map（H*W*512）  
 　　过程：将feature_map输入到卷积层（512个卷积核，每个卷积核大小为3，步长与填充都为1）  
 　　输出：特征图rpn_conv1  
----------------------------------------------------------------------------------------- 
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 6.RPN_cls_score(lib/model/rpn/rpn.py):  
 　　输入：特征图rpn_conv1  
 　　过程：将rpn_conv1输入至卷积层（H*W*9个卷积核，卷积核大小为1，边长为1，填充为0）  
@@ -113,7 +113,7 @@ overlaps->label(lib/model/rpn/anchor_target_layer.py):
 　　　　　,每个元素代表这个anchor框内有无目标物体，与Fast-Rcnn部分不同的是，它只在乎这个  
 　　　　　anchor中有没有目标物体，而不在乎这个物体属于哪一类。  
 　　输出：rpn_cls_loss（代表rpn网络预测每个anchor里有目标物体的分数）  
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 7.Cross_entropy:  
 　　输入：rpn_cls_score--(rpn网络预测由特征图每个anchor里有目标物体的分数)  
 　　　　　labels--（代表特征图生成的anchor里的真正分数(有无目标物体)，分数  
@@ -122,13 +122,13 @@ overlaps->label(lib/model/rpn/anchor_target_layer.py):
 　　　　　叉熵损失函数计算损失值，在不断反向传播时，ron_cls_score会越来越向label值靠近，   
 　　　　　这代表网络判断得越来越准。   
 　　输出：rpn_box_loss   
-----------------------------------------------------------------------------------------	
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 8.compute_target_batch(lib/model/rpn/bbox_transfrom.py):   
 　　输入：3输出的anchor，gt_boxes(假设anchor数量为N，gt_boxes数量为M)   
 　　过程：生成[N, M, 4]矩阵bbox_target.[i,j,4]代表第i个anchor的4个参数与第j个gt_boxes   
 　　　　　的4个参数的真正偏移量。   
 　　输出：bbox_target   
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 9.RPN_bbox_pred(lib/model/rpn/rpn.py):   
 　　输入：特征图rpn_conv1    
 　　过程：将rpn_conv1输入至卷积层（H*W*9*4个卷积核，卷积核大小为1，边长为1，填充为0）   
@@ -136,7 +136,7 @@ overlaps->label(lib/model/rpn/anchor_target_layer.py):
 　　　　　,代表特征图生成的H*W*9个anchor，每个anchor的参数为4个，分别是该anchor距离gt框的    
 　　　　　中心点与长宽的预测偏移量。    
 　　输出：rpn_bbox_pred（代表rpn网络预测每个anchor距离它最近的gt框的预测偏移量）    
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 10.smooth_l1_loss(lib/model/rpn/rpn.py):    
 　　输入：rpn_bbox_pred--(rpn网络预测由特征图每个anchor里距离gt框的预测偏移量)    
 　　　　　bbox_target--(特征图的每个anchor距离gt框的真正偏移量)    
@@ -145,14 +145,14 @@ overlaps->label(lib/model/rpn/anchor_target_layer.py):
 　　　　　综合cross_entropy与smooth_l1_loss，使得rpn网络预测出的anchor值越来越靠近gt框     
 　　　　　这为后面faster的预测打下了坚实的基础。     
 　　输出：rpn_box_loss    
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 anchors + rpn_bbox_pred -> rpn_output_rois(lib/model/rpn/proposal_layer.py)：     
 　　输入：anchors：特征图产生的(H*W*9)个anchor    
 　　　　　rpn_bbox_pred：rpn网络预测每个anchor距离它最近的gt框的预测偏移量     
 　　过程：将每个anchor的4个参数(中心点x,y,长,宽)与rpn_bbox_pred中对应的anchor偏移量进行运算，    
 　　　　　得到rpn网络预测每个anchor的最终位置rpn_output_rois     
 　　输出：rpn_output_rois
-----------------------------------------------------------------------------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 此后进入Fast-Rcnn部分。与RPN部分相比，思路上大体是差不多的。差别在：       
 1.输入的anchor上，rpn网络是人工产生的anchor而Fast-Rcnn部分是由rpn网络产生的rois作为anchor。       
 2.在RCNN_cls_score上，rpn只在乎anchor里有没有目标物体，而Fast-RCNN部分再要对anchor中的物体属于        
