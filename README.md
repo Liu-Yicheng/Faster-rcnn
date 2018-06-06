@@ -60,7 +60,6 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 
 # Faster-Rcnn模型详解
 faster组件说明:
-
 ----------------------------------------------------------------------------------------
 1.VGG16convrelu1--convrelu5(lib/model/faster_rcnn/vgg16.py):   
 　　输入：图片（input_image）  　
