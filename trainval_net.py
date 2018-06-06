@@ -71,7 +71,7 @@ def parse_args():
 
   parser.add_argument('--bs', dest='batch_size',
                       help='batch_size',
-                      default=8, type=int)
+                      default=1, type=int)
   parser.add_argument('--cag', dest='class_agnostic',
                       help='whether perform class_agnostic bbox regression',
                       default=True, type=bool)
