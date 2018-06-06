@@ -44,7 +44,7 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 　　　　　　　　　　　　　　　　[百度云](https://pan.baidu.com/s/1nHezTm6xKXjHYZXKHAl3KQ) 密码：or0m  
 　　　　　　　　D.针对自己的项目修改traincal.py文件中的参数(如果用命令行的就输入参数)    
 　　　　　　　　E.修改Data/pascal.py的141行，类别为用户的数据集类别           
-　　　　　　　　F.运行trainval.py 开始训练          
+　　　　　　　　F.运行trainval.py 开始训练（当数据集改变，需要删除Data/picture_data/cache里面的文件）          
 　　　　　　　　----------------------测试过程---------------------------  
 　　　　　　　　A.修改demo中的139行改为你训练之后的模型名称  
 　　　　　　　　B.将测试图片放入demo/images文件夹  
