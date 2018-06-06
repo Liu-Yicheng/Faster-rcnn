@@ -37,14 +37,15 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
   
 2.程序使用具体流程：---------------------训练过程-------------------------  
 　　　　　　　　A.将需要训练与测试的图片放入Data/picture_data/Images文件夹   
-　　　　　　　　　将XML文件放入Data/picture_data/Annotation文件夹  
+　　　　　　　　　将XML文件放入Data/picture_data/Annotation文件夹     
+　　　　　　　　（当数据集改变，需要删除Data/picture_data/cache里面的文件）     
 　　　　　　　　B.训练图片的编号写入train.txt  
 　　　　　　　　C.下载VGG预训练模型，放入Data/pretrained_model文件夹。  
 　　　　　　　　　权重下载地址：[Dropbox](https://www.dropbox.com/s/s3brpk0bdq60nyb/vgg16_caffe.pth?dl=0)　　[VT Server](https://filebox.ece.vt.edu/~jw2yang/faster-rcnn/pretrained-base-models/vgg16_caffe.pth)  
 　　　　　　　　　　　　　　　　[百度云](https://pan.baidu.com/s/1nHezTm6xKXjHYZXKHAl3KQ) 密码：or0m  
 　　　　　　　　D.针对自己的项目修改traincal.py文件中的参数(如果用命令行的就输入参数)    
 　　　　　　　　E.修改Data/pascal.py的141行，类别为用户的数据集类别           
-　　　　　　　　F.运行trainval.py 开始训练（当数据集改变，需要删除Data/picture_data/cache里面的文件）          
+　　　　　　　　F.运行trainval.py 开始训练         
 　　　　　　　　----------------------测试过程---------------------------  
 　　　　　　　　A.修改demo中的139行改为你训练之后的模型名称  
 　　　　　　　　B.将测试图片放入demo/images文件夹  
