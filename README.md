@@ -37,8 +37,9 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 　4.在下面的链接中下载VGG预训练模型，放入Data/pretrained_model文件夹   
 　5.直接可以运行trainval.py（训练500次之后结束，loss值一般为0.1-0.15）   
 　6.训练结束后直接可运行demo.py，在demo/result文件夹下可以看到它的预测结果   
-  
-2.程序使用具体流程：---------------------训练过程-------------------------  
+2.测试结果图如下：   
+　![result](https://github.com/Liu-Yicheng/Faster-rcnn/raw/master/Output/result.png)  
+3.程序使用具体流程：---------------------训练过程-------------------------  
 　　　　　　　　A.将需要训练与测试的图片放入Data/picture_data/Images文件夹   
 　　　　　　　　　将XML文件放入Data/picture_data/Annotation文件夹     
 　　　　　　　　（当数据集改变，需要删除Data/picture_data/cache里面的文件）     
