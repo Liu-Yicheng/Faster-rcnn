@@ -35,7 +35,7 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 　　　　　　　　B.训练图片的编号写入train.txt  
 　　　　　　　　C.下载VGG预训练模型，放入Data/pretrained_model文件夹。  
 　　　　　　　　　权重下载地址：[Dropbox](https://www.dropbox.com/s/s3brpk0bdq60nyb/vgg16_caffe.pth?dl=0)　　[VT Server](https://filebox.ece.vt.edu/~jw2yang/faster-rcnn/pretrained-base-models/vgg16_caffe.pth)  
-　　　　　　　　　　　　　　　　https://pan.baidu.com/s/1nHezTm6xKXjHYZXKHAl3KQ  密码：or0m  
+　　　　　　　　　　　　　　　　[百度云](https://pan.baidu.com/s/1nHezTm6xKXjHYZXKHAl3KQ) 密码：or0m  
 　　　　　　　　D.针对自己的项目修改config文件中的参数  
 　　　　　　　　E.运行trainval.py 开始训练  
 　　　　　　　　----------------------测试过程---------------------------  
