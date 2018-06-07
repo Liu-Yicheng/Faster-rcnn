@@ -167,8 +167,122 @@ anchors+rpn_bbox_pred+rpn_cls_score ->rpn_output_rois(lib/model/rpn/proposal_lay
 2.在RCNN_cls_score上，rpn只在乎anchor里有没有目标物体，而Fast-RCNN部分再要对anchor中的物体属于        
 　哪一类进行分类。     
 
-# Pytorch使用
-				
-				
+# Pytorch使用  
+### 构造模型  
+1.调用模型  
+　　ourmodel = models.alexnet()   
+　　注：在torchvision.models中定义了vgg、alexnet、densenet、inception、resnet、squeezenet等常用的网络。   
+　　　　我们使用调用语句就可以将定义的网络赋值给vgg。   
+   
+2.加载预训练模型  
+　　static_dict = torch.load(pretrained_model)      
+　　ourmodel.load_state_dict({k:v for k,v in static_dict.items() if k in ourmodel.state_dict()})    
+　　注：pretrained_model是预训练好的模型   
+　　　　模型的static_dict是一个字典，字典的key是模型层的变量名比如：features.0.weight   
+　　　　代表着features块的第一层的weight；字典的value就是变量值。加载预训练模型必须自己的模型与   
+　　　　预训练的模型的定义是一致的   
 
+3.了解模型构造   
+　　ourmodel = models.alexnet()   
+　　print(ourmodel._modules)   
+　　-----------------------result---------------------------------------------    
+　　OrderedDict(   
+　　[  ('features',    
+　　　　　Sequential((0): Conv2d (3, 64, kernel_size=(11, 11), stride=(4, 4), padding=(2, 2))   
+　　　　　　　　　　　(1): ReLU(inplace)   
+　　　　　　　　　　　(2): MaxPool2d(kernel_size=(3, 3), stride=(2, 2), dilation=(1, 1))   
+　　　　　　　　　　　(3): Conv2d (64, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))   
+　　　　　　　　　　　(4): ReLU(inplace)      
+　　　　　　　　　　　(5): MaxPool2d(kernel_size=(3, 3), stride=(2, 2), dilation=(1, 1))    
+　　　　　　　　　　　(6): Conv2d (192, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))    
+　　　　　　　　　　　(7): ReLU(inplace)     
+　　　　　　　　　　　(8): Conv2d (384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))    
+　　　　　　　　　　　(9): ReLU(inplace)     
+　　　　　　　　　　　(10): Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))    
+　　　　　　　　　　　(11): ReLU(inplace)    
+　　　　　　　　　　　(12): MaxPool2d(kernel_size=(3, 3), stride=(2, 2), dilation=(1, 1))    
+　　　　　　　　　　)),     
+　　　　('classifier',     
+　　　　　Sequential((0): Dropout(p=0.5)    
+　　　　　　　　　　　(1): Linear(in_features=9216, out_features=4096)    
+　　　　　　　　　　　(2): ReLU(inplace)     
+　　　　　　　　　　　(3): Dropout(p=0.5)    
+　　　　　　　　　　　(4): Linear(in_features=4096, out_features=4096)     
+　　　　　　　　　　　(5): ReLU(inplace)     
+　　　　　　　　　　　))     
+　　　])     
 
+    -----------------------result---------------------------------------------     
+　　从上面打印的结果可以看到，加载的模型一般分为两个部分：features，classifier。     
+　　features主要是卷积池化层，classifier主要是全连接层。      
+
+3.模型的拆解：    
+　　ourmodel = models.alexnet()    
+　　rebuild_model_feature = nn.Sequential(*list(ourmodel.features._modules.values())[:-1])     
+　　rebuild_model_classifier = nn.Sequential(*list(ourmodel.classifier._modules.values())[:-1])    
+　　注：-1：代表一般抛弃最后一层    
+　　　　在许多应用场景下，我们需要将卷积池化层与全连接层分开，在它们中间加入许多自己的组件    
+		
+4.固定模型某些层参数：   
+　　for layer in range(10):    
+　　　for p in rebuild_model_feature[layer].parameters():    
+　　　　p.requires_grad = False   
+　　注：requirs_grad表示该层的参数固定    
+	
+5.模型重组(加入自己的模型层)   
+　　重组的内涵我觉得是模型嵌套：A模型中加入B模型。实现有三个步骤：    
+　　1.构造B模型类（初始化函数，向前传播函数）    
+　　2.在A模型类初始化函数中加入B模型类     
+　　3.在A模型的向前传播函数中实现B模型的嵌套，通俗点说是，A在向前传播过程中，它前半模型的输出成为    
+　　　B模型的输入，B模型的输出成为A模型后半模型的输入。    
+	  
+6初始化模型部分层参数：   
+　　B是继承了nn.module的模型类。    
+　　weight初始化：1.B.weight.data.normal_().fmod_(2).mul_(stddev).add_(mean)    
+　　　　　　　　　2.B.weight.data.normal_(mean, stddev)   
+　　bias初始化：B.bias.data.zero_()    
+
+7.保存自己训练的模型：   
+　　torch.save({'model':ourmodel.static_dict   
+　　　　　　　　'optimizer':optimizer.static_dict   
+　　　　　　　　'***':***   
+　　　　　　　　}, save_file)   
+8.加载自己训练的模型：  
+　　load_file = ''   
+　　checkpoint = torch.load(load_name)   
+　　ourmodel.load_state_dict(checkpoint['model'])   
+　　optimizer.load_state_dict(checkpoint['optimizer'])   
+	
+9.在trainval文件里的常规套路：   
+　　step1.构造数据采样类   
+　　step2.构造数据类（处理原始数据，并提供iter或gettm去获取单个数据）   
+　　step3.构造dataloader（提供一个batch的输入数据）   
+　　step4.初始化tensorf_holder（相当于占位符）   
+	
+　　step5.构造模型    
+　　step6.设定学习率    
+　　step7.构造模型中参数集params：weight，bias的值与他们的正则化系数   
+　　step8.设定optimizer    
+	
+　　step9.进行训练模型的加载    
+　　step10.设定模型的模式（train还是eval）    
+　　step11.训练    
+　　　step11.1读取一个batch数据      
+　　　　　step11.1.1 dataloader调用Sampler类获得一个batch的index值    
+　　　　　step11.1.2 dataloader根据得到的index值调用数据类获取与之对应的数据    
+　　　step11.2设定模型梯度为0    
+　　　step11.3确定学习率的更新    
+　　　step11.4数据输入至模型进行计算loss值   
+　　　step11.5设定optimizer的梯度为0     
+　　　step11.6进行反向传播    
+　　　step11.7梯度更新    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
