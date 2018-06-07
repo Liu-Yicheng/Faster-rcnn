@@ -59,7 +59,7 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
   参考代码实现了多个模型与roi-crop，并且有计算map的函数等等，比较完备   
 
 # Faster-Rcnn模型详解   
-![picture1](https://github.com/Liu-Yicheng/Faster-rcnn/raw/master/Output/Faster.png)  
+![picture1](https://github.com/Liu-Yicheng/Faster-rcnn/raw/master/Output/Faster.jpg)  
 faster组件说明:   
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿    
 1.VGG16convrelu1--convrelu5(lib/model/faster_rcnn/vgg16.py):   
