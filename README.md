@@ -71,7 +71,7 @@ faster组件说明:
 1.VGG16convrelu1--convrelu5(lib/model/faster_rcnn/vgg16.py):   
 　　输入：图片（input_image）  　
 　　过程：图片输入多个卷积层池化层  
-　　输出：图片的特征图（H*W*512）   
+　　输出：图片的特征图（H * W * 512）   
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿   
 2.generate_anchor(lib/model/rpn/generate_anchor.py)：   
 　　输入：默认参数(base_size = 16, ratios =[0.5, 1, 2],scales = [8,16,32])   
