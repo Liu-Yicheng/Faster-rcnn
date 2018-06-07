@@ -2,8 +2,8 @@
 - [x] 完成README-工程代码部分：整体代码提交与测试   
 　　2018.6.6 完成代码提交     
 　　2018.6.6 完成代码测试：[6步即可训练与测试](#程序运行)         
-- [x] 完成README-[Faster模型详解](#Faster-Rcnn模型详解)部分－2018.6.7
-- [x] 完成README-[Pytorch使用](#Pytorch使用)部分
+- [x] 完成README-[Faster模型详解](#模型框架图)部分－2018.6.7
+- [x] 完成README-[Pytorch使用](#构造模型)部分
 # 工程代码    
 这个程序是基于Pytorch实现Faster-RCNN功能。    
 参考代码链接：https://github.com/jwyang/faster-rcnn.pytorch.git    
@@ -63,7 +63,8 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
 3.本代码方便学习faster内部细节与整个流程，但是用于项目中还是用参考代码  
   参考代码实现了多个模型与roi-crop，并且有计算map的函数等等，比较完备   
 
-# Faster-Rcnn模型详解   
+# Faster-Rcnn模型详解
+### 模型框架图
 ![picture1](https://github.com/Liu-Yicheng/Faster-rcnn/raw/master/Output/Faster.jpg)  
 faster组件说明:   
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿    
