@@ -2,8 +2,8 @@
 - [x] 完成README-工程代码部分：整体代码提交与测试   
 　　2018.6.6 完成代码提交     
 　　2018.6.6 完成代码测试：[6步即可训练与测试](#程序运行)         
-- [x] 完成README-Faster模型详解部分－2018.6.7
-- [ ] 完成README-Pytorch使用部分
+- [x] 完成README-[Faster模型详解](#Faster-Rcnn模型详解)部分－2018.6.7
+- [x] 完成README-[Pytorch使用](#Pytorch使用)部分
 # 工程代码    
 这个程序是基于Pytorch实现Faster-RCNN功能。    
 参考代码链接：https://github.com/jwyang/faster-rcnn.pytorch.git    
