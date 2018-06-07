@@ -147,12 +147,15 @@ overlaps->label(lib/model/rpn/anchor_target_layer.py):
 　　　　　这为后面faster的预测打下了坚实的基础。     
 　　输出：rpn_box_loss    
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿     
-anchors + rpn_bbox_pred -> rpn_output_rois(lib/model/rpn/proposal_layer.py)：     
+anchors+rpn_bbox_pred+rpn_cls_score ->rpn_output_rois(lib/model/rpn/proposal_layer.py)：     
 　　输入：anchors：特征图产生的(H*W*9)个anchor    
-　　　　　rpn_bbox_pred：rpn网络预测每个anchor距离它最近的gt框的预测偏移量     
+　　　　　rpn_bbox_pred：rpn网络预测每个anchor距离它最近的gt框的预测偏移量 
+         rpn_cls_score：rpn网络预测每个anchor内是否有物体的分数
 　　过程：将每个anchor的4个参数(中心点x,y,长,宽)与rpn_bbox_pred中对应的anchor偏移量进行运算，    
-　　　　　得到rpn网络预测每个anchor的最终位置rpn_output_rois     
-　　输出：rpn_output_rois     
+　　　　　得到rpn网络预测每个anchor的最终位置rpn_output_rois。
+     	 根据 rpn_cls_score分数从大到校将anchor进行排列，选取12000个候选框（测试时6000个）
+	 将选取出来的12000个候选框先通过nms得到nms。
+　　输出：rpn_output_rois（训练时2000个，测试时300个）   
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿         
 此后进入Fast-Rcnn部分。与RPN部分相比，思路上大体是差不多的。差别在：       
 1.输入的anchor上，rpn网络是人工产生的anchor而Fast-Rcnn部分是由rpn网络产生的rois作为anchor。       
