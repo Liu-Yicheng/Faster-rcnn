@@ -59,6 +59,7 @@ Ubuntu16.04（i5-7500 + GTX 1070Ti ） + python3.5 + Pytorch0.3.0
   参考代码实现了多个模型与roi-crop，并且有计算map的函数等等，比较完备   
 
 # Faster-Rcnn模型详解   
+![picture1](https://github.com/Liu-Yicheng/Faster-rcnn/raw/master/Output/Faster.png)  
 faster组件说明:   
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿    
 1.VGG16convrelu1--convrelu5(lib/model/faster_rcnn/vgg16.py):   
@@ -151,8 +152,8 @@ anchors + rpn_bbox_pred -> rpn_output_rois(lib/model/rpn/proposal_layer.py)：
 　　　　　rpn_bbox_pred：rpn网络预测每个anchor距离它最近的gt框的预测偏移量     
 　　过程：将每个anchor的4个参数(中心点x,y,长,宽)与rpn_bbox_pred中对应的anchor偏移量进行运算，    
 　　　　　得到rpn网络预测每个anchor的最终位置rpn_output_rois     
-　　输出：rpn_output_rois
-＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿     
+　　输出：rpn_output_rois     
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿         
 此后进入Fast-Rcnn部分。与RPN部分相比，思路上大体是差不多的。差别在：       
 1.输入的anchor上，rpn网络是人工产生的anchor而Fast-Rcnn部分是由rpn网络产生的rois作为anchor。       
 2.在RCNN_cls_score上，rpn只在乎anchor里有没有目标物体，而Fast-RCNN部分再要对anchor中的物体属于        
